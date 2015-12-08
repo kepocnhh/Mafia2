@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Mafia2</string>
+
+    <!-- Группы ролей -->
+    <string name="individuals">Группа одиночек</string>
+    <string name="organized">Организованная группировка</string>
+    <string name="clan">Клан во главе с боссом</string>
+    <string name="sect">Тайная секта</string>
+    <string name="individuals_descr">не знают о существовании друг друга и действует каждый сам за себя</string>
+    <string name="organized_descr">знают друг другга в лицо и могут действовать сообща, каждый по своему</string>
+    <string name="clan_descr">знают о существовании друг друга и понимают, кто есть их предводитель. И только он может действовать от лица всего клана</string>
+    <string name="sect_descr">не знают о существовании друг друга, и даже о существовании предводителя. И только он может действовать в тайне от всех</string>
+
+    <!-- Main-->
+    <string name="constructor">Constructor</string>
+    <!-- Constructor-->
+    <string name="to_actions">To actions</string>
+    <string name="to_roles">To roles</string>
+
+    <!-- Fragments tags-->
+        <!-- Main-->
+            <string name="MainFragment">main_fragment</string>
+        <!-- Constructor-->
+            <!-- ConstructorMenu-->
+                <string name="ConstructorMenu">constructor_menu</string>
+                <string name="ConstructorAction">constructor_action</string>
+                <string name="ConstructorRoleList">constructor_role_list</string>
+            <!-- ConstructorRole-->
+                <string name="ChangeSide">constructor_role_side</string>
+                <string name="ChangeTypeGroup">constructor_role_typegroup</string>
+                <string name="ChangeCommand">constructor_role_command</string>
+                <string name="ChangeVisibleRole">constructor_role_visiblerole</string>
+                <string name="ChangeActions">constructor_role_actions</string>
+                <string name="ChangeNameAndDescription">constructor_role_name_n_descr</string>
+                <string name="ConstructorRoleResult">constructor_role_result</string>
+</resources>
