@@ -6,6 +6,7 @@ import android.content.Intent;
 import stan.presenter.mafia.R;
 import stan.presenter.mafia.listeners.fragments.constructor.menu.IConstructorMenuClick;
 import stan.presenter.mafia.ui.fragments.constructor.menu.ConstructorMenu;
+import stan.presenter.mafia.ui.fragments.constructor.menu.ConstructorRoleList;
 
 public class Constructor
         extends StanActivity
@@ -44,7 +45,8 @@ public class Constructor
     @Override
     public void toRoles()
     {
-        replaceFragment(ConstructorMenu.newInstance());
+        replaceFragmentTag(ConstructorRoleList.newInstance());
+//        addFragmentTag(ConstructorRoleList.newInstance());
     }
 
     @Override

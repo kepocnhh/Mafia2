@@ -16,4 +16,10 @@ public class Role
     {
         super(n, d);
     }
+
+    public Role setTypeVisibility(TypeVisibility tv)
+    {
+        this.typeVisibility = tv;
+        return this;
+    }
 }

@@ -21,19 +21,19 @@ public class ContentDriver
     static private ContentValues getContentValues(Mafia m)
     {
         ContentValues cv = new ContentValues();
-        if (m.UID == null)
-        {
-            m.UID = getUI();
-        }
-        cv.put(BaseColumns._ID, m.UID);
+//        if (m.UID == null)
+//        {
+//            m.UID = getUI();
+//        }
+//        cv.put(BaseColumns._ID, m.UID);
         cv.put(Tables.NAME, m.name);
         return cv;
     }
 
-    static private String getUI()
-    {
-        return new Date().getTime() + "";
-    }
+//    static private String getUI()
+//    {
+//        return new Date().getTime() + "";
+//    }
 
     static private ContentValues getContentValues(MafiaDescription m)
     {
@@ -65,8 +65,8 @@ public class ContentDriver
     {
         ContentValues cv = getContentValues((stan.presenter.mafia.core.MafiaDescription) r);
         cv.put(Tables.Roles.SIDE, r.typeVisibility.ordinal());
-        cv.put(Tables.Roles.TYPEGROUP, r.typeGroup.UID);
-        cv.put(Tables.Roles.TEAM, r.team.UID);
+//        cv.put(Tables.Roles.TYPEGROUP, r.typeGroup.UID);
+//        cv.put(Tables.Roles.TEAM, r.team.UID);
         return cv;
     }
 
@@ -143,5 +143,12 @@ public class ContentDriver
                 route.getString(route.getColumnIndex(Tables.DESCRIPTION)));
         t.UID = route.getInt(route.getColumnIndex(BaseColumns._ID)) + "";
         return t;
+    }
+    static public Role setRoleContentValues(Cursor route)
+    {
+        Role r = new Role(route.getString(route.getColumnIndex(Tables.NAME)),
+                route.getString(route.getColumnIndex(Tables.DESCRIPTION)));
+        r.UID = route.getInt(route.getColumnIndex(BaseColumns._ID)) + "";
+        return r;
     }
 }

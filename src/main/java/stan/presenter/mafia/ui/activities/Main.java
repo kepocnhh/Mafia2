@@ -5,8 +5,10 @@ import android.database.Cursor;
 import android.util.Log;
 
 import stan.presenter.mafia.R;
+import stan.presenter.mafia.core.role.Role;
 import stan.presenter.mafia.core.role.Team;
 import stan.presenter.mafia.core.role.TypeGroup;
+import stan.presenter.mafia.core.role.TypeVisibility;
 import stan.presenter.mafia.database.ContentDriver;
 import stan.presenter.mafia.database.SQliteApi;
 import stan.presenter.mafia.database.Tables;
@@ -37,56 +39,45 @@ public class Main
     protected void init()
     {
         addFragment(MainFragment.newInstance());
-//        initDB();
+        initDB();
     }
 
     private void initDB()
     {
         SQliteApi.startTransaction();
-        insertTeam();
-        insertTypeGroup();
+        //        insertTeams();
+        //        insertTypesGroup();
+//        insertRoles();
         SQliteApi.endTransaction();
         getTypesGroup();
         getTeams();
+        getRoles();
     }
-    public void insertTeam()
+
+    public void insertTeams()
     {
-        SQliteApi.insertTeam(ContentDriver.getContentValues(
-                new Team("Город", "Мирные жтели и роли защищающие их")));
-        SQliteApi.insertTeam(ContentDriver.getContentValues(
-                new Team("Мафия", "Пытаются убить мирных жителей и захватить город")));
-        SQliteApi.insertTeam(ContentDriver.getContentValues(
-                new Team("Нейтральные", "Сохраняют нейтралитет и пытаются выжить")));
+        SQliteApi.insertTeam(ContentDriver.getContentValues(new Team("Город", "Мирные жтели и роли защищающие их")));
+        SQliteApi.insertTeam(ContentDriver.getContentValues(new Team("Мафия", "Пытаются убить мирных жителей и захватить город")));
+        SQliteApi.insertTeam(ContentDriver.getContentValues(new Team("Нейтральные", "Сохраняют нейтралитет и пытаются выжить")));
     }
-    public void insertTypeGroup()
+
+    public void insertTypesGroup()
     {
-        SQliteApi.insertTypeGroup(ContentDriver.getContentValues(
-                new TypeGroup(getResources().getString(R.string.individuals),
-                        getResources().getString(R.string.individuals_descr))
-                        .setVisibleInGroup(false)
-                        .setRang(false)));
-        SQliteApi.insertTypeGroup(ContentDriver.getContentValues(
-                new TypeGroup(getResources().getString(R.string.organized),
-                        getResources().getString(R.string.organized_descr))
-                        .setVisibleInGroup(true)
-                        .setRang(false)));
-        SQliteApi.insertTypeGroup(ContentDriver.getContentValues(
-                new TypeGroup(getResources().getString(R.string.clan),
-                        getResources().getString(R.string.clan_descr))
-                        .setVisibleInGroup(true)
-                        .setRang(true)
-                        .setRangShot(false)));
-        SQliteApi.insertTypeGroup(ContentDriver.getContentValues(
-                new TypeGroup(getResources().getString(R.string.sect),
-                        getResources().getString(R.string.sect_descr))
-                        .setVisibleInGroup(false)
-                        .setRang(true)
-                        .setRangShot(false)));
+        SQliteApi.insertTypeGroup(ContentDriver.getContentValues(new TypeGroup(getResources().getString(R.string.individuals), getResources().getString(R.string.individuals_descr)).setVisibleInGroup(false).setRang(false)));
+        SQliteApi.insertTypeGroup(ContentDriver.getContentValues(new TypeGroup(getResources().getString(R.string.organized), getResources().getString(R.string.organized_descr)).setVisibleInGroup(true).setRang(false)));
+        SQliteApi.insertTypeGroup(ContentDriver.getContentValues(new TypeGroup(getResources().getString(R.string.clan), getResources().getString(R.string.clan_descr)).setVisibleInGroup(true).setRang(true).setRangShot(false)));
+        SQliteApi.insertTypeGroup(ContentDriver.getContentValues(new TypeGroup(getResources().getString(R.string.sect), getResources().getString(R.string.sect_descr)).setVisibleInGroup(false).setRang(true).setRangShot(false)));
     }
+
+    public void insertRoles()
+    {
+        SQliteApi.insertRole(ContentDriver.getContentValues(new Role("Мирный житель", "Ночью не просыпаются. Днём пытаются разоблачить мафию").setTypeVisibility(TypeVisibility.peace)));
+        SQliteApi.insertRole(ContentDriver.getContentValues(new Role("Мафия", "Убивают городских жителей и пытаются не выдать себя").setTypeVisibility(TypeVisibility.mafia)));
+    }
+
     public void getTypesGroup()
     {
         Cursor cursor = SQliteApi.getTypesGroup();
-//        cursor.moveToFirst();
         while(cursor.moveToNext())
         {
             TypeGroup tg = ContentDriver.setTypeGroupContentValues(cursor);
@@ -94,14 +85,25 @@ public class Main
         }
         cursor.close();
     }
+
     public void getTeams()
     {
         Cursor cursor = SQliteApi.getTeams();
-//        cursor.moveToFirst();
         while(cursor.moveToNext())
         {
             Team t = ContentDriver.setTeamContentValues(cursor);
             Log.e("getTeams", "Team - name: " + t.name + " descr: " + t.description);
+        }
+        cursor.close();
+    }
+
+    public void getRoles()
+    {
+        Cursor cursor = SQliteApi.getRoles();
+        while(cursor.moveToNext())
+        {
+            Role r = ContentDriver.setRoleContentValues(cursor);
+            Log.e("getRoles", "Role - name: " + r.name + " descr: " + r.description);
         }
         cursor.close();
     }

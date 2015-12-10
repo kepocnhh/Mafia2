@@ -26,8 +26,22 @@ public class FragmentTransactionPattern
             fragmentManager.beginTransaction().add(id, f).commit();
         }
     }
+    public void add(Fragment f,String tag)
+    {
+        fragmentManager.beginTransaction().
+                add( this.ID, f).
+                addToBackStack(tag).
+                commit();
+    }
     public void replace(Fragment f)
     {
         fragmentManager.beginTransaction().replace(ID, f).commit();
+    }
+    public void replace(Fragment f,String tag)
+    {
+        fragmentManager.beginTransaction()
+                .replace(ID, f)
+                .addToBackStack(tag)
+                .commit();
     }
 }

@@ -10,7 +10,7 @@ public class SQliteApi
     public static DatabaseHelper dbHelper;
     public static volatile SQLiteDatabase sdb;
     public static String DB_NAME = "mafia";
-    public static int DB_VERSION = 1512080521;
+    public static int DB_VERSION = 1512101602;
 
     public static void createDb(Context context)
     {
@@ -59,6 +59,12 @@ public class SQliteApi
     public static Cursor getTeams()
     {
         Cursor main = sdb.query(Tables.Teams.TABLE_NAME, null, null, null, null, null, null);
+        return main;
+    }
+    public static Cursor getRoles()
+    {
+        //TODO create query for get teams, typegroup
+        Cursor main = sdb.query(Tables.Roles.TABLE_NAME, null, null, null, null, null, null);
         return main;
     }
 

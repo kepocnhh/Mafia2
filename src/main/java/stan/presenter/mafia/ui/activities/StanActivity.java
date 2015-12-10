@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import stan.presenter.mafia.ui.fragments.FragmentTransactionPattern;
+import stan.presenter.mafia.ui.fragments.StanFragment;
 
 public abstract class StanActivity
         extends AppCompatActivity
@@ -41,9 +42,17 @@ public abstract class StanActivity
     {
         fTP.add(f);
     }
+//    public void addFragmentTag(StanFragment f)
+//    {
+//        fTP.add(f, f.getFragmentTag());
+//    }
     public void replaceFragment(Fragment f)
     {
         fTP.replace(f);
+    }
+    public void replaceFragmentTag(StanFragment f)
+    {
+        fTP.replace(f, f.getFragmentTag());
     }
 
 //    protected abstract void initFragments();
