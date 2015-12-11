@@ -45,8 +45,8 @@ public class Main
     private void initDB()
     {
         SQliteApi.startTransaction();
-        //        insertTeams();
-        //        insertTypesGroup();
+//        insertTeams();
+//        insertTypesGroup();
 //        insertRoles();
         SQliteApi.endTransaction();
         getTypesGroup();
@@ -56,7 +56,7 @@ public class Main
 
     public void insertTeams()
     {
-        SQliteApi.insertTeam(ContentDriver.getContentValues(new Team("Город", "Мирные жтели и роли защищающие их")));
+        SQliteApi.insertTeam(ContentDriver.getContentValues(new Team("Город", "Мирные жители и роли защищающие их")));
         SQliteApi.insertTeam(ContentDriver.getContentValues(new Team("Мафия", "Пытаются убить мирных жителей и захватить город")));
         SQliteApi.insertTeam(ContentDriver.getContentValues(new Team("Нейтральные", "Сохраняют нейтралитет и пытаются выжить")));
     }
@@ -71,8 +71,22 @@ public class Main
 
     public void insertRoles()
     {
-        SQliteApi.insertRole(ContentDriver.getContentValues(new Role("Мирный житель", "Ночью не просыпаются. Днём пытаются разоблачить мафию").setTypeVisibility(TypeVisibility.peace)));
-        SQliteApi.insertRole(ContentDriver.getContentValues(new Role("Мафия", "Убивают городских жителей и пытаются не выдать себя").setTypeVisibility(TypeVisibility.mafia)));
+        Role peace = new Role("Мирный житель", "Ночью не просыпаются. Днём пытаются разоблачить мафию");
+        peace.setTypeVisibility(TypeVisibility.peace);
+        Team t = getTeam();
+        if(t!=null)
+        {
+            peace.setTeam(t);
+        }
+        SQliteApi.insertRole(ContentDriver.getContentValues(peace));
+        Role mafia = new Role("Мафия", "Убивают городских жителей и пытаются не выдать себя");
+        mafia.setTypeVisibility(TypeVisibility.mafia);
+        TypeGroup typeGroup = getTypeGroup();
+        if(typeGroup!=null)
+        {
+            mafia.setTypeGroup(typeGroup);
+        }
+        SQliteApi.insertRole(ContentDriver.getContentValues(mafia));
     }
 
     public void getTypesGroup()
@@ -85,6 +99,15 @@ public class Main
         }
         cursor.close();
     }
+    public TypeGroup getTypeGroup()
+    {
+        Cursor cursor = SQliteApi.getTypesGroup();
+        while(cursor.moveToNext())
+        {
+            return ContentDriver.setTypeGroupContentValues(cursor);
+        }
+        return null;
+    }
 
     public void getTeams()
     {
@@ -95,6 +118,15 @@ public class Main
             Log.e("getTeams", "Team - name: " + t.name + " descr: " + t.description);
         }
         cursor.close();
+    }
+    public Team getTeam()
+    {
+        Cursor cursor = SQliteApi.getTeams();
+        while(cursor.moveToNext())
+        {
+            return ContentDriver.setTeamContentValues(cursor);
+        }
+        return null;
     }
 
     public void getRoles()

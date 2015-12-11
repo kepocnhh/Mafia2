@@ -18,10 +18,23 @@ public class RoleListRecyclerHolder
     public RoleListRecyclerHolder(View v)
     {
         super(v);
-        customizeRole = v.findViewById(R.id.customizeRole);
-        deleteRole = v.findViewById(R.id.deleteRole);
-        lableRole = (TextView)v.findViewById(R.id.lableRole);
-        infoRole = v.findViewById(R.id.infoRole);
-        descriptionRole = (TextView)v.findViewById(R.id.descriptionRole);
+        this.customizeRole = v.findViewById(R.id.customizeRole);
+        this.deleteRole = v.findViewById(R.id.deleteRole);
+        this.lableRole = (TextView)v.findViewById(R.id.lableRole);
+        this.infoRole = v.findViewById(R.id.infoRole);
+        this.descriptionRole = (TextView)v.findViewById(R.id.descriptionRole);
+    }
+
+    public void hide()
+    {
+        this.infoRole.setVisibility(View.GONE);
+        this.deleteRole.setVisibility(View.GONE);
+        this.customizeRole.setVisibility(View.GONE);
+    }
+    public void show()
+    {
+        this.infoRole.setVisibility(View.VISIBLE);
+        this.deleteRole.setVisibility(View.VISIBLE);
+        this.customizeRole.setVisibility(View.VISIBLE);
     }
 }

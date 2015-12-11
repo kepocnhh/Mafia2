@@ -4,13 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.BaseColumns;
 
 public class SQliteApi
 {
     public static DatabaseHelper dbHelper;
     public static volatile SQLiteDatabase sdb;
     public static String DB_NAME = "mafia";
-    public static int DB_VERSION = 1512101602;
+    public static int DB_VERSION = 1512111910;
 
     public static void createDb(Context context)
     {
@@ -63,9 +64,52 @@ public class SQliteApi
     }
     public static Cursor getRoles()
     {
-        //TODO create query for get teams, typegroup
-        Cursor main = sdb.query(Tables.Roles.TABLE_NAME, null, null, null, null, null, null);
-        return main;
+//        Cursor cursor = sdb.rawQuery(
+//                "SELECT *"
+//                        + "FROM " + Tables.PostSimple_TABLE_NAME + " "
+//                        + "JOIN " + Tables.PostsAndCategory_TABLE_NAME + " "
+//                        + "ON " + Tables.PostSimple_TABLE_NAME + "." + BaseColumns._ID + "=" + Tables.PostsAndCategory_TABLE_NAME + "." + Tables.PostsAndCategory_post_id_COLUMN + " "
+//                        + "JOIN " + Tables.Category_TABLE_NAME + " "
+//                        + "ON " + Tables.Category_TABLE_NAME + "." + BaseColumns._ID + "=" + Tables.PostsAndCategory_TABLE_NAME + "." + Tables.PostsAndCategory_category_id_COLUMN + " "
+//                        + "WHERE " + Tables.Category_TABLE_NAME + "." + BaseColumns._ID + "=" + category_id + " "
+//                        + "ORDER BY " + Tables.PostSimple_date_COLUMN + " DESC" + " "
+//                        + "LIMIT " + page*10 + "; "
+//                , new String[]{});
+//        Cursor cursor = sdb.rawQuery(
+//                "SELECT * "
+//                        + "FROM " + Tables.SESSIONS_TABLE_NAME + " "
+//                        + "LEFT JOIN " + Tables.MOVIES_TABLE_NAME + " "
+//                        + "ON " + Tables.SESSIONS_TABLE_NAME + "." +Tables.SESSIONS_MOVIE_ID_COLUMN + " = " + Tables.MOVIES_TABLE_NAME + "." + BaseColumns._ID + " "
+//                        + "WHERE " + Tables.SESSIONS_DATE_COLUMN + "=\"" + date + "\" "
+//                        + "GROUP BY " + Tables.SESSIONS_MOVIE_ID_COLUMN + " "
+//                , new String[]{});
+        //TODO create query for get teams
+        //TODO create query for get typegroup
+//        Cursor main = sdb.query(Tables.Roles.TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor = sdb.rawQuery(
+                "SELECT "
+//                        + Tables.Roles.TABLE_NAME + "." + BaseColumns._ID + " AS ID," + Tables.Teams.TABLE_NAME + "." + BaseColumns._ID + " AS team_ID "
+                        + Tables.Teams.TABLE_NAME + "." + BaseColumns._ID + " AS " + Tables.Teams.TEAM_ID + ", "
+                        + Tables.Teams.TABLE_NAME + "." + Tables.NAME + " AS " + Tables.Teams.TEAM_NAME + ", "
+                        + Tables.Teams.TABLE_NAME + "." + Tables.DESCRIPTION + " AS " + Tables.Teams.TEAM_DESCRIPTION + ", "
+                        + Tables.TypesGroup.TABLE_NAME + "." + BaseColumns._ID + " AS " + Tables.TypesGroup.TYPESGROUP_ID + ", "
+                        + Tables.TypesGroup.TABLE_NAME + "." + Tables.NAME + " AS " + Tables.TypesGroup.TYPESGROUP_NAME + ", "
+                        + Tables.TypesGroup.TABLE_NAME + "." + Tables.DESCRIPTION + " AS " + Tables.TypesGroup.TYPESGROUP_DESCRIPTION + ", "
+                        + Tables.TypesGroup.TABLE_NAME + "." + Tables.TypesGroup.VISIBLE_IN_GROUP + ", "
+                        + Tables.TypesGroup.TABLE_NAME + "." + Tables.TypesGroup.RANG + ", "
+                        + Tables.TypesGroup.TABLE_NAME + "." + Tables.TypesGroup.RANG_SHOT + ", "
+                        + Tables.Roles.TABLE_NAME + "." + BaseColumns._ID + ", "
+                        + Tables.Roles.TABLE_NAME + "." + Tables.NAME + ", "
+                        + Tables.Roles.TABLE_NAME + "." + Tables.DESCRIPTION + ", "
+                        + Tables.Roles.TABLE_NAME + "." + Tables.Roles.TEAM_ID + ", "
+                        + Tables.Roles.TABLE_NAME + "." + Tables.Roles.SIDE + " "
+                        + "FROM " + Tables.Roles.TABLE_NAME + " "
+                        + "LEFT JOIN " + Tables.Teams.TABLE_NAME + " "
+                        + "ON " + Tables.Roles.TABLE_NAME + "." +Tables.Roles.TEAM_ID + " = " + Tables.Teams.TABLE_NAME + "." + BaseColumns._ID + " "
+                        + "LEFT JOIN " + Tables.TypesGroup.TABLE_NAME + " "
+                        + "ON " + Tables.Roles.TABLE_NAME + "." +Tables.Roles.TYPEGROUP_ID + " = " + Tables.TypesGroup.TABLE_NAME + "." + BaseColumns._ID + " "
+                , new String[]{});
+        return cursor;
     }
 
     // CLEAR DB TABLES

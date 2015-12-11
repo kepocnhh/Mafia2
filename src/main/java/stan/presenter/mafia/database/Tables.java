@@ -25,17 +25,17 @@ public class Tables
     {
         public static final String TABLE_NAME = "rolestable";
         public static final String SIDE = "side";
-        public static final String TYPEGROUP = "typegroup";
-        public static final String TEAM = "team";
+        public static final String TYPEGROUP_ID = "typegroup_id";
+        public static final String TEAM_ID = "team_id";
 
         public static final String CREATE_TABLE="create table if not exists "+
                 TABLE_NAME+"("+
                 BaseColumns._ID + " integer primary key autoincrement, " +
                 NAME + " text, " +
                 DESCRIPTION + " text, " +
-                SIDE + " integer " +
-                TYPEGROUP + " text " +
-                TEAM + " text " +
+                SIDE + " integer, " +
+                TYPEGROUP_ID + " integer, " +
+                TEAM_ID + " integer " +
                 ");";
     }
 
@@ -78,6 +78,9 @@ public class Tables
         public static final String RANG = "rang";
         public static final String RANG_SHOT = "rang_shot";
 //        public static final String VISIBLE_RANG = "visible_rang";
+        public static final String TYPESGROUP_ID = "typesgroup_ID";
+        public static final String TYPESGROUP_NAME = "typesgroup_NAME";
+        public static final String TYPESGROUP_DESCRIPTION = "typesgroup_DESCRIPTION";
 
         public static final String CREATE_TABLE="create table if not exists "+
                 TABLE_NAME+"("+
@@ -94,6 +97,9 @@ public class Tables
     public static class Teams
     {
         public static final String TABLE_NAME = "teamstable";
+        public static final String TEAM_ID = "team_ID";
+        public static final String TEAM_NAME = "team_NAME";
+        public static final String TEAM_DESCRIPTION = "team_DESCRIPTION";
 
         public static final String CREATE_TABLE="create table if not exists "+
                 TABLE_NAME+"("+

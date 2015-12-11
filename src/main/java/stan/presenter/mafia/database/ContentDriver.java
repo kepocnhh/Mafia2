@@ -66,7 +66,14 @@ public class ContentDriver
         ContentValues cv = getContentValues((stan.presenter.mafia.core.MafiaDescription) r);
         cv.put(Tables.Roles.SIDE, r.typeVisibility.ordinal());
 //        cv.put(Tables.Roles.TYPEGROUP, r.typeGroup.UID);
-//        cv.put(Tables.Roles.TEAM, r.team.UID);
+        if(r.team != null)
+        {
+            cv.put(Tables.Roles.TEAM_ID, r.team.UID);
+        }
+        if(r.typeGroup != null)
+        {
+            cv.put(Tables.Roles.TYPEGROUP_ID, r.typeGroup.UID);
+        }
         return cv;
     }
 
@@ -117,9 +124,13 @@ public class ContentDriver
 
     static public TypeGroup setTypeGroupContentValues(Cursor route)
     {
-        TypeGroup t = new TypeGroup(route.getString(route.getColumnIndex(Tables.NAME)),
-                route.getString(route.getColumnIndex(Tables.DESCRIPTION)));
-        t.UID = route.getInt(route.getColumnIndex(BaseColumns._ID)) + "";
+        return setTypeGroupContentValues(route, Tables.NAME, Tables.DESCRIPTION, BaseColumns._ID);
+    }
+    static private TypeGroup setTypeGroupContentValues(Cursor route, String name, String descr, String id)
+    {
+        TypeGroup t = new TypeGroup(route.getString(route.getColumnIndex(name)),
+                route.getString(route.getColumnIndex(descr)));
+        t.UID = route.getInt(route.getColumnIndex(id));
         int i = route.getInt(route.getColumnIndex(Tables.TypesGroup.VISIBLE_IN_GROUP));
         t.setVisibleInGroup(i == 1);
         i = route.getInt(route.getColumnIndex(Tables.TypesGroup.RANG));
@@ -139,16 +150,28 @@ public class ContentDriver
 
     static public Team setTeamContentValues(Cursor route)
     {
-        Team t = new Team(route.getString(route.getColumnIndex(Tables.NAME)),
-                route.getString(route.getColumnIndex(Tables.DESCRIPTION)));
-        t.UID = route.getInt(route.getColumnIndex(BaseColumns._ID)) + "";
+        return setTeamContentValues(route, Tables.NAME, Tables.DESCRIPTION, BaseColumns._ID);
+    }
+    static private Team setTeamContentValues(Cursor route, String name, String descr, String id)
+    {
+        Team t = new Team(route.getString(route.getColumnIndex(name)),
+                route.getString(route.getColumnIndex(descr)));
+        t.UID = route.getInt(route.getColumnIndex(id));
         return t;
     }
     static public Role setRoleContentValues(Cursor route)
     {
         Role r = new Role(route.getString(route.getColumnIndex(Tables.NAME)),
                 route.getString(route.getColumnIndex(Tables.DESCRIPTION)));
-        r.UID = route.getInt(route.getColumnIndex(BaseColumns._ID)) + "";
+        r.UID = route.getInt(route.getColumnIndex(BaseColumns._ID));
+        if(route.getInt(route.getColumnIndex(Tables.Teams.TEAM_ID))>0)
+        {
+            r.team = setTeamContentValues(route, Tables.Teams.TEAM_NAME, Tables.Teams.TEAM_DESCRIPTION, Tables.Teams.TEAM_ID);
+        }
+        if(route.getInt(route.getColumnIndex(Tables.TypesGroup.TYPESGROUP_ID))>0)
+        {
+            r.typeGroup = setTypeGroupContentValues(route, Tables.TypesGroup.TYPESGROUP_NAME, Tables.TypesGroup.TYPESGROUP_DESCRIPTION, Tables.TypesGroup.TYPESGROUP_ID);
+        }
         return r;
     }
 }

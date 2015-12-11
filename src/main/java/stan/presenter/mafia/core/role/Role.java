@@ -22,4 +22,14 @@ public class Role
         this.typeVisibility = tv;
         return this;
     }
+    public Role setTeam(Team t)
+    {
+        this.team = t;
+        return this;
+    }
+    public Role setTypeGroup(TypeGroup t)
+    {
+        this.typeGroup = t;
+        return this;
+    }
 }

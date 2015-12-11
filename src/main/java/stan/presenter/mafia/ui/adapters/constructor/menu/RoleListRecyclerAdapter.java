@@ -42,9 +42,10 @@ public class RoleListRecyclerAdapter
         getHolder(h).lableRole.setText(mCursor.getString(mCursor.getColumnIndex(Tables.NAME)));
         if(checkPosition != i)
         {
-            getHolder(h).infoRole.setVisibility(View.GONE);
+            getHolder(h).hide();
             return;
         }
+        getHolder(h).show();
         getHolder(h).infoRole.setVisibility(View.VISIBLE);
         getHolder(h).descriptionRole.setText(mCursor.getString(mCursor.getColumnIndex(Tables.DESCRIPTION)));
         getHolder(h).customizeRole.setOnClickListener(new View.OnClickListener()
