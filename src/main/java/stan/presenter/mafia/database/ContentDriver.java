@@ -5,11 +5,18 @@ import android.database.Cursor;
 import android.provider.BaseColumns;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.Date;
 
 import stan.presenter.mafia.core.Mafia;
 import stan.presenter.mafia.core.MafiaDescription;
+import stan.presenter.mafia.core.abilities.Ability;
+import stan.presenter.mafia.core.abilities.active.Active;
+import stan.presenter.mafia.core.abilities.active.changeProperty.Block;
+import stan.presenter.mafia.core.abilities.active.changeProperty.ChangeProperty;
+import stan.presenter.mafia.core.abilities.active.changeProperty.HealNight;
+import stan.presenter.mafia.core.abilities.active.changeProperty.Kill;
 import stan.presenter.mafia.core.action.Action;
 import stan.presenter.mafia.core.role.Role;
 import stan.presenter.mafia.core.role.Team;
@@ -45,19 +52,32 @@ public class ContentDriver
     static public ContentValues getContentValues(Action a)
     {
         ContentValues cv = getContentValues((stan.presenter.mafia.core.MafiaDescription) a);
+//        JSONArray abilitieArray = new JSONArray();
+//        for (int i = 0; i < a.abilities.length; i++)
+//        {
+//            JSONArray abilitieMap = new JSONArray();
+//            int[] map = a.abilities[i].getMap();
+//            for (int j = 0; j < map.length; j++)
+//            {
+//                abilitieMap.put(map[j]);
+//            }
+//            abilitieArray.put(abilitieMap);
+//        }
+//        String abilities = abilitieArray.toString();
+//        cv.put(Tables.Actions.ABILITIES, abilities);
+        return cv;
+    }
+    static public ContentValues getContentValues(Ability a)
+    {
+        ContentValues cv = getContentValues((stan.presenter.mafia.core.MafiaDescription) a);
         JSONArray abilitieArray = new JSONArray();
-        for (int i = 0; i < a.abilities.length; i++)
-        {
-            JSONArray abilitieMap = new JSONArray();
-            int[] map = a.abilities[i].getMap();
+            int[] map = a.getMap();
             for (int j = 0; j < map.length; j++)
             {
-                abilitieMap.put(map[j]);
+                abilitieArray.put(map[j]);
             }
-            abilitieArray.put(abilitieMap);
-        }
         String abilities = abilitieArray.toString();
-        cv.put(Tables.Actions.ABILITIES, abilities);
+        cv.put(Tables.Abilities.MAP, abilities);
         return cv;
     }
 
@@ -120,6 +140,47 @@ public class ContentDriver
     {
         ContentValues cv = getContentValues((stan.presenter.mafia.core.MafiaDescription) t);
         return cv;
+    }
+
+    static public Action setActionContentValues(Cursor route)
+    {
+        Action a = new Action(route.getString(route.getColumnIndex(Tables.NAME)),
+                route.getString(route.getColumnIndex(Tables.DESCRIPTION)));
+        return a;
+    }
+    static public Ability setAbilityContentValues(Cursor route)
+    {
+        Ability a = null;
+        String name = route.getString(route.getColumnIndex(Tables.NAME));
+        String descr = route.getString(route.getColumnIndex(Tables.DESCRIPTION));
+        String map = route.getString(route.getColumnIndex(Tables.Abilities.MAP));
+        try
+        {
+            JSONArray abilitieMap = new JSONArray(map);
+            if(abilitieMap.getInt(0) == Ability.TypeAbility.Active.ordinal())
+            {
+                if(abilitieMap.getInt(1) == Active.TypeActive.ChangeProperty.ordinal())
+                {
+                    if(abilitieMap.getInt(2) == ChangeProperty.TypeChangeProperty.Block.ordinal())
+                    {
+                        a = new Block(name, descr);
+                    }
+                    else if(abilitieMap.getInt(2) == ChangeProperty.TypeChangeProperty.HealNight.ordinal())
+                    {
+                        a = new HealNight(name, descr);
+                    }
+                    else if(abilitieMap.getInt(2) == ChangeProperty.TypeChangeProperty.Kill.ordinal())
+                    {
+                        a = new Kill(name, descr);
+                    }
+                }
+            }
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+        return a;
     }
 
     static public TypeGroup setTypeGroupContentValues(Cursor route)

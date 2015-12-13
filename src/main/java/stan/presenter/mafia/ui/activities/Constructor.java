@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 
 import stan.presenter.mafia.R;
+import stan.presenter.mafia.listeners.fragments.constructor.menu.IConstructorActionClick;
 import stan.presenter.mafia.listeners.fragments.constructor.menu.IConstructorMenuClick;
+import stan.presenter.mafia.listeners.fragments.constructor.menu.IConstructorRoleClick;
+import stan.presenter.mafia.ui.fragments.constructor.menu.ConstructorActionList;
 import stan.presenter.mafia.ui.fragments.constructor.menu.ConstructorMenu;
 import stan.presenter.mafia.ui.fragments.constructor.menu.ConstructorRoleList;
 
 public class Constructor
         extends StanActivity
-        implements IConstructorMenuClick
+        implements IConstructorMenuClick, IConstructorRoleClick, IConstructorActionClick
 {
     static public final int ConstructorRequestCode = 1;
 
@@ -46,12 +49,11 @@ public class Constructor
     public void toRoles()
     {
         replaceFragmentTag(ConstructorRoleList.newInstance());
-//        addFragmentTag(ConstructorRoleList.newInstance());
     }
 
     @Override
     public void toActions()
     {
-
+        replaceFragmentTag(ConstructorActionList.newInstance());
     }
 }

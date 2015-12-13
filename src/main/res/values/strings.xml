@@ -2,14 +2,33 @@
     <string name="app_name">Mafia2</string>
 
     <!-- Группы ролей -->
-    <string name="individuals">Группа одиночек</string>
-    <string name="organized">Организованная группировка</string>
-    <string name="clan">Клан во главе с боссом</string>
-    <string name="sect">Тайная секта</string>
-    <string name="individuals_descr">не знают о существовании друг друга и действует каждый сам за себя</string>
-    <string name="organized_descr">знают друг другга в лицо и могут действовать сообща, каждый по своему</string>
-    <string name="clan_descr">знают о существовании друг друга и понимают, кто есть их предводитель. И только он может действовать от лица всего клана</string>
-    <string name="sect_descr">не знают о существовании друг друга, и даже о существовании предводителя. И только он может действовать в тайне от всех</string>
+    <string name="tg_individuals">Группа одиночек</string>
+    <string name="tg_organized">Организованная группировка</string>
+    <string name="tg_clan">Клан во главе с боссом</string>
+    <string name="tg_sect">Тайная секта</string>
+    <string name="tg_individuals_descr">не знают о существовании друг друга и действует каждый сам за себя</string>
+    <string name="tg_organized_descr">знают друг другга в лицо и могут действовать сообща, каждый по своему</string>
+    <string name="tg_clan_descr">знают о существовании друг друга и понимают, кто есть их предводитель. И только он может действовать от лица всего клана</string>
+    <string name="tg_sect_descr">не знают о существовании друг друга, и даже о существовании предводителя. И только он может действовать в тайне от всех</string>
+    <!-- Roles -->
+    <string name="role_peace">Мирный житель</string>
+    <string name="role_mafia">Мафия</string>
+    <string name="role_peace_descr">Ночью не просыпаются. Днём пытаются разоблачить мафию</string>
+    <string name="role_mafia_descr">Убивают городских жителей и пытаются не выдать себя</string>
+    <!-- Actions -->
+    <string name="action_kill">Убить</string>
+    <string name="action_jail">Посадить в тюрьму</string>
+    <string name="action_kill_descr">Игрок делает попытку лишить жизни другого игрока ночью</string>
+    <string name="action_jail_descr">Сажает игрока в тюрьму. Тем самым защищает его от смерти, но блокирует действия</string>
+    <!-- Abilities -->
+    <string name="ability_kill">Лишение жизни</string>
+    <string name="ability_block">Заблокировать действие роли</string>
+    <string name="ability_healday">Защитить от убийства днём</string>
+    <string name="ability_healnight">Защитить от убийства ночью</string>
+    <string name="ability_kill_descr">Изменить состояние игрока на "мёртвого". Такой игрок выбывает из игры. Аннулируется действием защиты от убийства.</string>
+    <string name="ability_block_descr">Аннулирует все действия совершённые ролью, поэтому на роли без действий не имеет эффекта. Блокирование так же может быть заблокированно кем-то другим.</string>
+    <string name="ability_healday_descr">Аннулирует попытку лишить жизни выбранного игрока днём. Этот игрок просто не покидает игру, а город засыпает и продолжает играть дальше по всем правилам.</string>
+    <string name="ability_healnight_descr">Аннулирует попытку лишить жизни выбранного игрока ночью.</string>
 
     <!-- Main-->
     <string name="constructor">Constructor</string>
@@ -23,7 +42,7 @@
         <!-- Constructor-->
             <!-- ConstructorMenu-->
                 <string name="ConstructorMenu">constructor_menu</string>
-                <string name="ConstructorAction">constructor_action</string>
+                <string name="ConstructorActionList">constructor_action_list</string>
                 <string name="ConstructorRoleList">constructor_role_list</string>
             <!-- ConstructorRole-->
                 <string name="ChangeSide">constructor_role_side</string>

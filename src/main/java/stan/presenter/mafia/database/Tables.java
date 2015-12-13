@@ -10,14 +10,27 @@ public class Tables
     public static class Actions
     {
         public static final String TABLE_NAME = "actionstable";
-        public static final String ABILITIES = "abilities";
+//        public static final String ABILITIES = "abilities";
+
+        public static final String CREATE_TABLE="create table if not exists "+
+                TABLE_NAME+"("+
+                BaseColumns._ID + " integer primary key autoincrement, " +
+                NAME + " text, " +
+                DESCRIPTION + " text " +
+//                ABILITIES + " text " +
+                ");";
+    }
+    public static class Abilities
+    {
+        public static final String TABLE_NAME = "abilitiestable";
+        public static final String MAP = "map";
 
         public static final String CREATE_TABLE="create table if not exists "+
                 TABLE_NAME+"("+
                 BaseColumns._ID + " integer primary key autoincrement, " +
                 NAME + " text, " +
                 DESCRIPTION + " text, " +
-                ABILITIES + " text " +
+                MAP + " text " +
                 ");";
     }
 
@@ -44,16 +57,29 @@ public class Tables
         public static final String TABLE_NAME = "rolesandactionstable";
         public static final String ROLE_ID = "role_id";
         public static final String ACTION_ID = "action_id";
-        public static final String SELFIE = "selfie";
-        public static final String VISIBLES = "visibles";
+//        public static final String SELFIE = "selfie";
+//        public static final String VISIBLES = "visibles";
 
         public static final String CREATE_TABLE="create table if not exists "+
                 TABLE_NAME+"("+
                 BaseColumns._ID + " integer primary key autoincrement, " +
-                ROLE_ID + " text " +
+                ROLE_ID + " text, " +
                 ACTION_ID + " text " +
-                SELFIE + " integer " +
-                VISIBLES + " integer " +
+//                SELFIE + " integer " +
+//                VISIBLES + " integer " +
+                ");";
+    }
+    public static class ActionsAndAbilities
+    {
+        public static final String TABLE_NAME = "actionsandabilitiestable";
+        public static final String ABILITY_ID = "ability_id";
+        public static final String ACTION_ID = "action_id";
+
+        public static final String CREATE_TABLE="create table if not exists "+
+                TABLE_NAME+"("+
+                BaseColumns._ID + " integer primary key autoincrement, " +
+                ABILITY_ID + " text, " +
+                ACTION_ID + " text " +
                 ");";
     }
 

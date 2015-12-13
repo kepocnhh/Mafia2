@@ -11,7 +11,7 @@ public class SQliteApi
     public static DatabaseHelper dbHelper;
     public static volatile SQLiteDatabase sdb;
     public static String DB_NAME = "mafia";
-    public static int DB_VERSION = 1512111910;
+    public static int DB_VERSION = 1512130256;
 
     public static void createDb(Context context)
     {
@@ -37,6 +37,10 @@ public class SQliteApi
     {
         return sdb.insertWithOnConflict(Tables.Actions.TABLE_NAME, null, content, SQLiteDatabase.CONFLICT_REPLACE);
     }
+    public static long insertAbility(ContentValues content)
+    {
+        return sdb.insertWithOnConflict(Tables.Abilities.TABLE_NAME, null, content, SQLiteDatabase.CONFLICT_REPLACE);
+    }
     public static long insertRole(ContentValues content)
     {
         return sdb.insertWithOnConflict(Tables.Roles.TABLE_NAME, null, content, SQLiteDatabase.CONFLICT_REPLACE);
@@ -52,6 +56,16 @@ public class SQliteApi
 
     // GET ALL
     /* ************************************************************************ */
+    public static Cursor getActions()
+    {
+        Cursor main = sdb.query(Tables.Actions.TABLE_NAME, null, null, null, null, null, null);
+        return main;
+    }
+    public static Cursor getAbilities()
+    {
+        Cursor main = sdb.query(Tables.Abilities.TABLE_NAME, null, null, null, null, null, null);
+        return main;
+    }
     public static Cursor getTypesGroup()
     {
         Cursor main = sdb.query(Tables.TypesGroup.TABLE_NAME, null, null, null, null, null, null);
@@ -83,8 +97,6 @@ public class SQliteApi
 //                        + "WHERE " + Tables.SESSIONS_DATE_COLUMN + "=\"" + date + "\" "
 //                        + "GROUP BY " + Tables.SESSIONS_MOVIE_ID_COLUMN + " "
 //                , new String[]{});
-        //TODO create query for get teams
-        //TODO create query for get typegroup
 //        Cursor main = sdb.query(Tables.Roles.TABLE_NAME, null, null, null, null, null, null);
         Cursor cursor = sdb.rawQuery(
                 "SELECT "
@@ -117,8 +129,10 @@ public class SQliteApi
     public static void clearDB(SQLiteDatabase db)
     {
         db.execSQL("drop table if exists " + Tables.Actions.TABLE_NAME);
+        db.execSQL("drop table if exists " + Tables.Abilities.TABLE_NAME);
         db.execSQL("drop table if exists " + Tables.Roles.TABLE_NAME);
         db.execSQL("drop table if exists " + Tables.RolesAndActions.TABLE_NAME);
+        db.execSQL("drop table if exists " + Tables.ActionsAndAbilities.TABLE_NAME);
         db.execSQL("drop table if exists " + Tables.VisibleRoles.TABLE_NAME);
         db.execSQL("drop table if exists " + Tables.TypesGroup.TABLE_NAME);
         db.execSQL("drop table if exists " + Tables.Teams.TABLE_NAME);
@@ -129,8 +143,10 @@ public class SQliteApi
     public static void createDBTables(SQLiteDatabase db)
     {
         db.execSQL(Tables.Actions.CREATE_TABLE);
+        db.execSQL(Tables.Abilities.CREATE_TABLE);
         db.execSQL(Tables.Roles.CREATE_TABLE);
         db.execSQL(Tables.RolesAndActions.CREATE_TABLE);
+        db.execSQL(Tables.ActionsAndAbilities.CREATE_TABLE);
         db.execSQL(Tables.VisibleRoles.CREATE_TABLE);
         db.execSQL(Tables.TypesGroup.CREATE_TABLE);
         db.execSQL(Tables.Teams.CREATE_TABLE);

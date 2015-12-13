@@ -57,6 +57,11 @@ public abstract class StanActivity
 
 //    protected abstract void initFragments();
 
+    protected String getStringRes(int res)
+    {
+        return getResources().getString(res);
+    }
+
     protected abstract void initViews();
 
     protected abstract void init();
