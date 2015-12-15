@@ -35,6 +35,14 @@ public class ConstructorActionList
     protected void findViews(View v)
     {
         super.findViews(v);
+        v.findViewById(R.id.addAction).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                newRole();
+            }
+        });
         listActions = (RecyclerView) v.findViewById(R.id.listActions);
         initList();
         init();
@@ -63,6 +71,11 @@ public class ConstructorActionList
 
     @Override
     public void deleteAction(int id)
+    {
+
+    }
+
+    private void newRole()
     {
 
     }

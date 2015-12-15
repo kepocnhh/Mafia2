@@ -11,7 +11,7 @@ public class SQliteApi
     public static DatabaseHelper dbHelper;
     public static volatile SQLiteDatabase sdb;
     public static String DB_NAME = "mafia";
-    public static int DB_VERSION = 1512130256;
+    public static int DB_VERSION = 1512150414;
 
     public static void createDb(Context context)
     {
@@ -36,6 +36,10 @@ public class SQliteApi
     public static long insertAction(ContentValues content)
     {
         return sdb.insertWithOnConflict(Tables.Actions.TABLE_NAME, null, content, SQLiteDatabase.CONFLICT_REPLACE);
+    }
+    public static long insertTempAction(ContentValues content)
+    {
+        return sdb.insertWithOnConflict(Tables.TempAction.TABLE_NAME, null, content, SQLiteDatabase.CONFLICT_REPLACE);
     }
     public static long insertAbility(ContentValues content)
     {
@@ -124,11 +128,18 @@ public class SQliteApi
         return cursor;
     }
 
+    public static void clearTempAction(SQLiteDatabase db)
+    {
+        db.execSQL("drop table if exists " + Tables.TempAction.TABLE_NAME);
+        db.execSQL(Tables.TempAction.CREATE_TABLE);
+    }
+
     // CLEAR DB TABLES
     /* ************************************************************************ */
     public static void clearDB(SQLiteDatabase db)
     {
         db.execSQL("drop table if exists " + Tables.Actions.TABLE_NAME);
+        db.execSQL("drop table if exists " + Tables.TempAction.TABLE_NAME);
         db.execSQL("drop table if exists " + Tables.Abilities.TABLE_NAME);
         db.execSQL("drop table if exists " + Tables.Roles.TABLE_NAME);
         db.execSQL("drop table if exists " + Tables.RolesAndActions.TABLE_NAME);
@@ -143,6 +154,7 @@ public class SQliteApi
     public static void createDBTables(SQLiteDatabase db)
     {
         db.execSQL(Tables.Actions.CREATE_TABLE);
+        db.execSQL(Tables.TempAction.CREATE_TABLE);
         db.execSQL(Tables.Abilities.CREATE_TABLE);
         db.execSQL(Tables.Roles.CREATE_TABLE);
         db.execSQL(Tables.RolesAndActions.CREATE_TABLE);

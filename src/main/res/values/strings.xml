@@ -52,4 +52,6 @@
                 <string name="ChangeActions">constructor_role_actions</string>
                 <string name="ChangeNameAndDescription">constructor_role_name_n_descr</string>
                 <string name="ConstructorRoleResult">constructor_role_result</string>
+    <!-- ConstructorAction-->
+    <string name="ActionResult">action_result</string>
 </resources>

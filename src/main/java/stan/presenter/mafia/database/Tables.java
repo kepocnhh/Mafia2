@@ -20,6 +20,20 @@ public class Tables
 //                ABILITIES + " text " +
                 ");";
     }
+    public static class TempAction
+    {
+        public static final String TABLE_NAME = "temp" + "action" + "table";
+        public static final String ABILITIES = "abilities";
+
+        public static final String CREATE_TABLE="create table if not exists "+
+                TABLE_NAME+"("+
+                BaseColumns._ID + " integer primary key autoincrement, " +
+                NAME + " text, " +
+                DESCRIPTION + " text, " +
+                ABILITIES + " text " +
+                ");";
+    }
+
     public static class Abilities
     {
         public static final String TABLE_NAME = "abilitiestable";

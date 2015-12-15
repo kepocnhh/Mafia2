@@ -1,5 +1,7 @@
 package stan.presenter.mafia.core.abilities;
 
+import org.json.JSONArray;
+
 import stan.presenter.mafia.core.MafiaDescription;
 
 public abstract class Ability
@@ -18,5 +20,5 @@ public abstract class Ability
         super(n, d);
     }
 
-    public abstract int[] getMap();
+    public abstract JSONArray getMap();
 }

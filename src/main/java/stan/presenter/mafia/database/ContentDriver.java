@@ -70,13 +70,7 @@ public class ContentDriver
     static public ContentValues getContentValues(Ability a)
     {
         ContentValues cv = getContentValues((stan.presenter.mafia.core.MafiaDescription) a);
-        JSONArray abilitieArray = new JSONArray();
-            int[] map = a.getMap();
-            for (int j = 0; j < map.length; j++)
-            {
-                abilitieArray.put(map[j]);
-            }
-        String abilities = abilitieArray.toString();
+        String abilities = a.getMap().toString();
         cv.put(Tables.Abilities.MAP, abilities);
         return cv;
     }

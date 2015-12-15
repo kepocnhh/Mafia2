@@ -1,5 +1,7 @@
 package stan.presenter.mafia.core.abilities.active.changeProperty;
 
+import org.json.JSONArray;
+
 import stan.presenter.mafia.core.player.Player;
 
 public class HealNight
@@ -11,13 +13,13 @@ public class HealNight
     }
 
     @Override
-    public int[] getMap()
+    public JSONArray getMap()
     {
-        int[] map = new int[3];
-        map[0] = TypeAbility.Active.ordinal();
-        map[1] = TypeActive.ChangeProperty.ordinal();
-        map[2] = TypeChangeProperty.HealNight.ordinal();
-        return map;
+        JSONArray abilitieArray = new JSONArray();
+        abilitieArray.put(TypeAbility.Active.ordinal());
+        abilitieArray.put(TypeActive.ChangeProperty.ordinal());
+        abilitieArray.put(TypeChangeProperty.HealNight.ordinal());
+        return abilitieArray;
     }
 
     @Override
